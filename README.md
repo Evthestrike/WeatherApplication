@@ -4,6 +4,13 @@ A basic weather application duplicated from google's weather application. Simply
 
 # Compile and Run
 
+Add a file `apikey.json` to the src folder in the format:
+```json
+{
+    "apiKey": "...`"
+}
+```
+
 After duplicating the repository to a local machine, run 
 ```
 yarn install
