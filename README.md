@@ -1,3 +1,21 @@
+# Weather Application
+
+A basic weather application duplicated from google's weather application. Simply search weather in chrome to find the application this copies.
+
+# Compile and Run
+
+After duplicating the repository to a local machine, run 
+```
+yarn install
+```
+followed by 
+```
+yarn start
+```
+in the command line to locally host this web application.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
