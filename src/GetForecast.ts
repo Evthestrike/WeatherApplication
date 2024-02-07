@@ -1,5 +1,8 @@
 import { off } from "process";
 import _, { max } from "underscore";
+import apikey from "./apikey.json";
+
+const apiKey = apikey.apiKey;
 
 interface FiveDayForecastResponse {
   cod: string;
@@ -104,10 +107,10 @@ const convertNumToDay = (stringNum: string) =>
 const getAvgWeatherIcon = (forecasts: Forecast[]): string => {
   const commonWeather = _.max(
     _.map(
-      _.countBy(forecasts, forecast => forecast.weather.icon),
+      _.countBy(forecasts, (forecast) => forecast.weather.icon),
       (num, icon) => ({ icon: icon, num: num })
     ),
-    x => x.num
+    (x) => x.num
   );
   return typeof commonWeather === "number" ? "01d" : commonWeather.icon;
 };
@@ -115,7 +118,7 @@ const getAvgWeatherIcon = (forecasts: Forecast[]): string => {
 const convertToFiveDayForecast = (
   response: FiveDayForecastResponse
 ): FiveDayForecast => {
-  const forecasts: Forecast[] = _.map(response.list, forecastResponse => ({
+  const forecasts: Forecast[] = _.map(response.list, (forecastResponse) => ({
     dt: new Date(forecastResponse.dt * 1000),
     temp: Math.round(forecastResponse.main.temp),
     weather: {
@@ -130,17 +133,17 @@ const convertToFiveDayForecast = (
     humidity: forecastResponse.main.humidity,
   }));
 
-  const groupedForecasts = _.groupBy(forecasts, forecast =>
+  const groupedForecasts = _.groupBy(forecasts, (forecast) =>
     forecast.dt.getDay()
   );
 
   const days: Day[] = _.map(groupedForecasts, (dayForecasts, dayNum) => {
     return {
       dayOfWeek: convertNumToDay(dayNum),
-      maxTemp: _.max(_.map(dayForecasts, forecast => forecast.temp)),
-      minTemp: _.min(_.map(dayForecasts, forecast => forecast.temp)),
+      maxTemp: _.max(_.map(dayForecasts, (forecast) => forecast.temp)),
+      minTemp: _.min(_.map(dayForecasts, (forecast) => forecast.temp)),
       avgWeatherIcon: getAvgWeatherIcon(dayForecasts),
-      forecasts: _.sortBy(dayForecasts, forecast => forecast.dt.getTime()),
+      forecasts: _.sortBy(dayForecasts, (forecast) => forecast.dt.getTime()),
     };
   });
 
@@ -149,7 +152,7 @@ const convertToFiveDayForecast = (
       name: response.city.name,
       country: response.city.country,
     },
-    days: _.sortBy(days, day => day.forecasts[0].dt.getTime()),
+    days: _.sortBy(days, (day) => day.forecasts[0].dt.getTime()),
   };
 };
 
@@ -162,7 +165,7 @@ interface FiveDayForecastQueryParams {
   lang?: string;
 }
 
-const apiKey = "9783280f35e4e669d88d39ff3c07cabb";
+// Get the first line of the apikey.txt file
 
 const createFiveDayForecastURL = (queryParams: FiveDayForecastQueryParams) =>
   "https://api.openweathermap.org/data/2.5/forecast?" +
