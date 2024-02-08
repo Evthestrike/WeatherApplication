@@ -8,7 +8,7 @@ Add a file `apikey.json` to the src folder in the format:
 
 ```json
 {
-    "apiKey": "...`"
+    "apiKey": "..."
 }
 ```
 
