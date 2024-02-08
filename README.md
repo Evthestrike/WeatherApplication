@@ -2,28 +2,31 @@
 
 A basic weather application duplicated from google's weather application. Simply search weather in chrome to find the application this copies.
 
-# Compile and Run
+## Compile and Run
 
 Add a file `apikey.json` to the src folder in the format:
+
 ```json
 {
     "apiKey": "...`"
 }
 ```
 
-After duplicating the repository to a local machine, run 
-```
+After duplicating the repository to a local machine, run
+
+``` bash
 yarn install
 ```
-followed by 
-```
+
+followed by
+
+``` bash
 yarn start
 ```
+
 in the command line to locally host this web application.
 
-
-
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
